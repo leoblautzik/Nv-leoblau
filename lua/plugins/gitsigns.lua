@@ -27,7 +27,6 @@ return {
 						gitsigns.nav_hunk("prev")
 					end
 				end)
-
 				-- Actions
 				map("n", "<leader>hs", gitsigns.stage_hunk)
 				map("n", "<leader>hr", gitsigns.reset_hunk)
