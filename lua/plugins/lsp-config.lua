@@ -18,6 +18,7 @@ return {
         "neovim/nvim-lspconfig",
         config = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            -- local on_attach = require("cmp_nvim_lsp").default_on_attach()
             local lspconfig = require("lspconfig")
 
             -- lua
@@ -49,7 +50,7 @@ return {
 
             -- python
             lspconfig.pyright.setup({
-                --on_attach = on_attach,
+                -- on_attach = on_attach,
                 capabilities = capabilities,
                 filetypes = { "python" },
                 settings = {
@@ -65,6 +66,15 @@ return {
                     useLibraryCodeForTypes = true,
                     diagnosticMode = "workspace", -- "openFilesOnly",
                 },
+            })
+
+            -- java
+            lspconfig.jdtls.setup({
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.signatureHelpProvider = false
+                    -- on_attach(client, bufnr)
+                end,
+                capabilities = capabilities,
             })
 
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
