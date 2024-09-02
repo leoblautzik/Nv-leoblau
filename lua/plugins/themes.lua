@@ -5,10 +5,10 @@ return {
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("catppuccin-mocha")
-			-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-			-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-			-- vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "none", ctermbg = "none" })
-			-- vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "none", ctermbg = "none" })
+			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+			vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "none", ctermbg = "none" })
+			vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "none", ctermbg = "none" })
 		end,
 	},
 	-- {
@@ -32,6 +32,14 @@ return {
 	-- 	-- priority = 1000,
 	-- 	config = function()
 	-- 		-- vim.cmd.colorscheme("tokyonight-night")
+	-- 	end,
+	-- },
+	--
+	-- {
+	-- 	"rose-pine/neovim",
+	-- 	name = "rose-pine",
+	-- 	config = function()
+	-- 		-- vim.cmd.colorscheme("rose-pine")
 	-- 	end,
 	-- },
 }
