@@ -14,15 +14,34 @@ vim.opt.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.opt.showmode = false
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
+------------------------------------------------------------------
 
 -- navigate within insert mode
 vim.api.nvim_set_keymap("i", "<C-h>", "<Left>", { noremap = true })
 vim.api.nvim_set_keymap("i", "<C-l>", "<Right>", { noremap = true })
 vim.api.nvim_set_keymap("i", "<C-j>", "<Down>", { noremap = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "<Up>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>sx", "<cmd>close<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<Tab>", "<cmd>bn<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<S-Tab>", "<cmd>bp<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>sh", "<C-w>s", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>sv", "<C-w>v", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>se", "<C-w>=", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>sx", "<cmd>close<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Up>", "<Nop>", {})
+vim.api.nvim_set_keymap("n", "<Down>", "<Nop>", {})
+vim.api.nvim_set_keymap("n", "<Left>", "<Nop>", {})
+vim.api.nvim_set_keymap("n", "<Right>", "<Nop>", {})
+vim.api.nvim_set_keymap("n", "<Home>", "<Nop>", {})
+vim.api.nvim_set_keymap("n", "<PageUp>", "<Nop>", {})
+vim.api.nvim_set_keymap("n", "<PageDown>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<Up>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<Down>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<Left>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<Right>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<Home>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<PageUp>", "<Nop>", {})
+vim.api.nvim_set_keymap("i", "<PageDown>", "<Nop>", {})
+------------------------------------------------------------------
 
 -- compilar y ejecutar
 vim.keymap.set("n", "<leader>ex", function()
@@ -37,6 +56,7 @@ vim.keymap.set("n", "<leader>ex", function()
 		vim.cmd(":terminal python " .. file_name)
 	end
 end)
+------------------------------------------------------------------
 
 -- Abre donde se dejó la ultima vez
 local lastplace = vim.api.nvim_create_augroup("LastPlace", {})
@@ -53,3 +73,26 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
+------------------------------------------------------------------
+
+-- Relativo en modo Normal ---------------------------------------
+-- Absoluto en modo Insert
+local vim = vim
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+-- automatic number toggle
+local number_toggle = augroup("numbertoggle", { clear = true })
+
+autocmd({ "InsertLeave" }, {
+	pattern = "*",
+	group = number_toggle,
+	command = "setlocal relativenumber",
+})
+
+autocmd({ "InsertEnter" }, {
+	pattern = "*",
+	group = number_toggle,
+	command = "setlocal norelativenumber",
+})
+------------------------------------------------------------------
