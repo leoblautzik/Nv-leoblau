@@ -40,6 +40,7 @@ vim.api.nvim_set_keymap("i", "<Left>", "<Nop>", {})
 vim.api.nvim_set_keymap("i", "<Right>", "<Nop>", {})
 vim.api.nvim_set_keymap("i", "<Home>", "<Nop>", {})
 vim.api.nvim_set_keymap("i", "<PageUp>", "<Nop>", {})
+
 vim.api.nvim_set_keymap("i", "<PageDown>", "<Nop>", {})
 ------------------------------------------------------------------
 
@@ -53,7 +54,7 @@ vim.keymap.set("n", "<leader>ex", function()
 	elseif file_type == "c" then
 		vim.cmd(":terminal gcc " .. file_name .. "; ./a.out")
 	elseif file_type == "python" then
-		vim.cmd(":terminal python " .. file_name)
+		vim.cmd(":terminal python3 " .. file_name)
 	end
 end)
 ------------------------------------------------------------------
@@ -96,3 +97,16 @@ autocmd({ "InsertEnter" }, {
 	command = "setlocal norelativenumber",
 })
 ------------------------------------------------------------------
+vim.api.nvim_create_autocmd("BufNewFile", {
+	pattern = "*.py",
+	callback = function()
+		vim.api.nvim_buf_set_lines(
+			0,
+			0,
+			0,
+			false,
+			{ "def main():", "    pass", "", 'if __name__ == "__main__":', "    main()" }
+		)
+		vim.api.nvim_win_set_cursor(0, { 2, 4 }) -- Mueve el cursor a la línea con la indentación
+	end,
+})
